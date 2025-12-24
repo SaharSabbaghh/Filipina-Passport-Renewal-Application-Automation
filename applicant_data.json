@@ -1,0 +1,66 @@
+{
+  "application_type": {
+    "applicant_category": "adult",
+    "processing_type": "regular"
+  },
+  "personal_info": {
+    "last_name": "DELA CRUZ",
+    "first_name": "JUAN III",
+    "middle_name": "SANTOS",
+    "place_of_birth": "MANILA MM",
+    "date_of_birth": {
+      "day": "15",
+      "month": "03",
+      "year": "1990"
+    },
+    "sex": "male",
+    "national_id": "1234-5678-9012-3456",
+    "civil_status": "single",
+    "present_address": "123 Main St, Makati City, Metro Manila",
+    "contact_no": "+63 912 345 6789",
+    "email": "juan.delacruz@email.com"
+  },
+  "family_info": {
+    "spouse_name": "N/A",
+    "spouse_citizenship": "N/A",
+    "father_name": "PEDRO SANTOS DELA CRUZ",
+    "father_citizenship": "FILIPINO",
+    "mother_maiden_name": "MARIA REYES SANTOS",
+    "mother_citizenship": "FILIPINO"
+  },
+  "citizenship_info": {
+    "acquired_by": "birth",
+    "foreign_citizenship": {
+      "acquired": false,
+      "country": "",
+      "mode": ""
+    },
+    "foreign_military": {
+      "served": false,
+      "country": ""
+    },
+    "renounced_philippine_citizenship": false,
+    "foreign_passport": {
+      "issued": false,
+      "country": ""
+    },
+    "philippine_passport": {
+      "issued": true,
+      "number": "P1234567A",
+      "date_of_issue": "2019-05-15",
+      "place_of_issue": "DFA MANILA"
+    }
+  },
+  "minor_info": {
+    "accompanied_by": "N/A",
+    "relationship": "N/A",
+    "accompanying_mobile": "N/A"
+  },
+  "emergency_contact": {
+    "name": "MARIA SANTOS DELA CRUZ",
+    "mobile": "+63 998 765 4321",
+    "relationship": "MOTHER",
+    "address": "456 Secondary St, Quezon City"
+  }
+}
+

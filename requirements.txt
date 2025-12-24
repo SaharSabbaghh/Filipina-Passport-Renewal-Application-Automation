@@ -1,0 +1,7 @@
+# PDF Form Filler Dependencies
+PyMuPDF>=1.23.0
+
+# API Server Dependencies
+Flask>=3.0.0
+requests>=2.31.0
+gunicorn>=21.0.0
