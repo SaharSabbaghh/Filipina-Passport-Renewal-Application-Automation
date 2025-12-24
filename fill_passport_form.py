@@ -224,13 +224,67 @@ def fill_text_fields(page, data: dict):
             insert_text(page, x, y, str(value))
 
 
-def generate_filled_pdf_bytes(data: dict, template_path: str) -> Tuple[bytes, str]:
+def compress_pdf_images(doc, max_dimension: int = 800, quality: int = 75):
+    """
+    Compress images in the PDF to reduce file size.
+    
+    Args:
+        doc: PyMuPDF document object
+        max_dimension: Maximum width/height for images (smaller = smaller file)
+        quality: JPEG quality (1-100, lower = smaller file)
+    """
+    import io
+    
+    for page_num in range(len(doc)):
+        page = doc[page_num]
+        image_list = page.get_images()
+        
+        for img_index, img in enumerate(image_list):
+            xref = img[0]
+            
+            try:
+                # Extract image
+                pix = fitz.Pixmap(doc, xref)
+                
+                # Skip if already small
+                if pix.width <= max_dimension and pix.height <= max_dimension:
+                    continue
+                
+                # Calculate new dimensions maintaining aspect ratio
+                if pix.width > pix.height:
+                    new_width = max_dimension
+                    new_height = int(pix.height * max_dimension / pix.width)
+                else:
+                    new_height = max_dimension
+                    new_width = int(pix.width * max_dimension / pix.height)
+                
+                # Convert to RGB if necessary (JPEG doesn't support alpha)
+                if pix.n > 3:
+                    pix = fitz.Pixmap(fitz.csRGB, pix)
+                
+                # Resize using PyMuPDF's built-in method
+                # Create a smaller version by converting to JPEG bytes
+                img_bytes = pix.tobytes("jpeg", quality)
+                
+                # Create new pixmap from compressed JPEG
+                new_pix = fitz.Pixmap(io.BytesIO(img_bytes))
+                
+                # Replace image in the document
+                doc.update_stream(xref, new_pix.tobytes("jpeg", quality))
+                
+            except Exception:
+                # If compression fails for an image, skip it
+                continue
+
+
+def generate_filled_pdf_bytes(data: dict, template_path: str, compress: bool = True) -> Tuple[bytes, str]:
     """
     Generate a filled PDF from applicant data and return as bytes.
     
     Args:
         data: Dictionary containing applicant data
         template_path: Path to the blank PDF form template
+        compress: Whether to compress/optimize the PDF for smaller file size
     
     Returns:
         Tuple of (pdf_bytes, full_name)
@@ -247,8 +301,20 @@ def generate_filled_pdf_bytes(data: dict, template_path: str) -> Tuple[bytes, st
     # Fill text fields
     fill_text_fields(page, data)
     
-    # Get PDF as bytes
-    pdf_bytes = doc.tobytes()
+    # Get PDF as bytes with compression options
+    if compress:
+        # Compress embedded images first
+        compress_pdf_images(doc, max_dimension=600, quality=60)
+        
+        # Use garbage collection and deflate compression for smaller file size
+        pdf_bytes = doc.tobytes(
+            garbage=4,  # Maximum garbage collection (remove unused objects)
+            deflate=True,  # Compress streams
+            clean=True,  # Clean and sanitize content streams
+        )
+    else:
+        pdf_bytes = doc.tobytes()
+    
     doc.close()
     
     # Extract full name for the API response
