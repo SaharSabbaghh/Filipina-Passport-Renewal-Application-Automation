@@ -23,16 +23,6 @@ FIELD_COORDINATES = {
     # MINOR checkbox at x=80.1, y=143.5
     "checkbox_minor": (82, 152),
     
-    # ===== PROCESSING TYPE CHECKBOXES (FOR DFA USE) =====
-    # EXPEDITE at x=285.0, y=140.3
-    "checkbox_expedite": (287, 147),
-    # REGULAR at x=345.9, y=140.3
-    "checkbox_regular": (348, 147),
-    # LOST/DAMAGED at x=407.2, y=140.3
-    "checkbox_lost_damaged": (409, 147),
-    # OTHERS at x=489.6, y=140.3
-    "checkbox_others": (491, 147),
-    
     # ===== PERSONAL INFORMATION =====
     # Last Name - underline at y=173.8, label at y=187.9, write on the line
     "last_name": (35, 180),
@@ -179,12 +169,6 @@ CHECKBOX_MAPPINGS = {
     "applicant_category": {
         "adult": "checkbox_adult",
         "minor": "checkbox_minor"
-    },
-    "processing_type": {
-        "expedite": "checkbox_expedite",
-        "regular": "checkbox_regular",
-        "lost_damaged": "checkbox_lost_damaged",
-        "others": "checkbox_others"
     },
     "sex": {
         "male": "checkbox_male",

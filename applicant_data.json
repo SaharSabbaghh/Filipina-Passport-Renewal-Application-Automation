@@ -1,7 +1,6 @@
 {
   "application_type": {
-    "applicant_category": "adult",
-    "processing_type": "regular"
+    "applicant_category": "adult"
   },
   "personal_info": {
     "last_name": "DELA CRUZ",

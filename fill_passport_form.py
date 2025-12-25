@@ -115,14 +115,6 @@ def fill_checkboxes(page, data: dict):
             x, y = FIELD_COORDINATES[checkbox_key]
             insert_checkbox(page, x, y)
     
-    # Processing type
-    proc_type = app_type.get("processing_type", "").lower()
-    if proc_type in CHECKBOX_MAPPINGS["processing_type"]:
-        checkbox_key = CHECKBOX_MAPPINGS["processing_type"][proc_type]
-        if checkbox_key in FIELD_COORDINATES:
-            x, y = FIELD_COORDINATES[checkbox_key]
-            insert_checkbox(page, x, y)
-    
     # Personal Info
     personal = data.get("personal_info", {})
     
